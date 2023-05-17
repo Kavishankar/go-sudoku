@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"strconv"
 	"sync"
 
@@ -53,7 +54,7 @@ func (c *Cell) SetGiven(iValue int) error {
 func (c *Cell) HasValue() bool {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
-	return (c.value != 0)
+	return (c.value != SudokuCellZeroValue)
 }
 
 func (c *Cell) GetValue() int {
@@ -64,12 +65,12 @@ func (c *Cell) GetValue() int {
 
 func (c *Cell) SetValue(iValue int) error {
 
-	if iValue < 1 || iValue > 9 {
-		return errors.New("invalid_input")
+	if iValue < SudokuCellMinValue9x9 || iValue > SudokuCellMaxValue9x9 {
+		return fmt.Errorf("%s: %d", ErrorInvalidCellValue, iValue)
 	}
 
 	if c.IsGiven() {
-		return errors.New("cannot_override_given_cell")
+		return errors.New(ErrorCannotOverwriteGivenCell)
 	}
 
 	c.mu.Lock()
