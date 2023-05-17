@@ -15,7 +15,7 @@ type Cell struct {
 	value int
 
 	allowListMap   map[int]bool
-	blocklistMap   map[int]bool
+	blockListMap   map[int]bool
 	allowListSlice []int
 	blockListSlice []int
 }
@@ -44,7 +44,7 @@ func (c *Cell) SetGiven(iValue int) error {
 	defer c.mu.Unlock()
 	c.given = true
 	c.allowListMap = nil
-	c.blocklistMap = nil
+	c.blockListMap = nil
 	c.allowListSlice = nil
 	c.blockListSlice = nil
 	return nil
@@ -77,7 +77,7 @@ func (c *Cell) SetValue(iValue int) error {
 
 	c.value = iValue
 	c.allowListMap = nil
-	c.blocklistMap = nil
+	c.blockListMap = nil
 	c.allowListSlice = nil
 	c.blockListSlice = nil
 	return nil
@@ -113,7 +113,7 @@ func (c *Cell) setDefaultMapsAndArrays() {
 		8: true,
 		9: true,
 	}
-	c.blocklistMap = map[int]bool{
+	c.blockListMap = map[int]bool{
 		1: false,
 		2: false,
 		3: false,
@@ -132,7 +132,7 @@ func (c *Cell) blockEntry(n int) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	c.allowListMap[n] = false
-	c.blocklistMap[n] = true
+	c.blockListMap[n] = true
 	c.blockListSlice = append(c.blockListSlice, n)
 	nIndex := slices.Index(c.allowListSlice, n)
 	if nIndex != -1 {
