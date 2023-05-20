@@ -44,10 +44,6 @@ func (c *Cell) SetGiven(iValue int) error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	c.given = true
-	c.allowListMap = nil
-	c.blockListMap = nil
-	c.allowListSlice = nil
-	c.blockListSlice = nil
 	return nil
 }
 
